@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Props/tileset.png" type="Texture" id=1]
+[ext_resource path="res://Props/Torch.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 9.63842, 8.99585 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="Sprite2" parent="." instance=ExtResource( 2 )]
