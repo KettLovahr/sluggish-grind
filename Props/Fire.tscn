@@ -21,13 +21,14 @@ tracks/0/keys = {
 
 [node name="Node2D" type="Node2D"]
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "FireAnimation"
+playback_process_mode = 0
+anims/FireAnimation = SubResource( 1 )
+
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 3
-frame = 1
+frame = 2
 region_enabled = true
 region_rect = Rect2( 16, 0, 48, 16 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "FireAnimation"
-anims/FireAnimation = SubResource( 1 )

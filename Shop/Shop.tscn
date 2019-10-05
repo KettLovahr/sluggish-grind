@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Props/tileset.png" type="Texture" id=1]
+[ext_resource path="res://Fonts/FontResource.tres" type="DynamicFont" id=2]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 6 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[node name="Shop" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Shopkeeper" type="Sprite" parent="StaticBody2D"]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 32, 32, 32 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 8, 10 )
+shape = SubResource( 2 )
+
+[node name="Balloon" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -32 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 80, 16, 32, 32 )
+
+[node name="Label" type="Label" parent="Balloon"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -36.0
+margin_top = -26.0
+margin_right = 4.0
+margin_bottom = -9.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "?"
+align = 1
+
+[node name="InteractionZone" type="Area2D" parent="."]
+position = Vector2( 32, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
+shape = SubResource( 1 )
