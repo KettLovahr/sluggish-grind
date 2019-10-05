@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Baddie/Baddie.gd" type="Script" id=1]
 [ext_resource path="res://Props/tileset.png" type="Texture" id=2]
+[ext_resource path="res://Baddie/Area2D.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Default"
 length = 0.4
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("../Baddie/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -40,6 +41,7 @@ autoplay = "Default"
 anims/Default = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
+script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )

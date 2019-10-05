@@ -1,4 +1,5 @@
 extends Node2D
+class_name Coin
 
 # Declare member variables here. Examples:
 # var a = 2

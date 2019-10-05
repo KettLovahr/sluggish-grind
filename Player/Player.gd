@@ -1,6 +1,9 @@
 extends KinematicBody2D
 class_name Player
 
+
+var bullet: PackedScene = preload("res://Player/Slug.tscn")
+
 const GRAVITY: float = 9.8
 var facing_right: bool = true
 var motion: Vector2 = Vector2(0, 0)
@@ -11,13 +14,15 @@ var coin_count: int = 0
 var hearts: int = 10
 var checkpoint: Vector2
 
+var dead: bool = false
+
 var max_speed: float = 64.0
 var jump_force: float = 192.0
 var jump_extra: float = 0.04
 var jumps: int = 0
 
 var has_doublejump: int = 0
-var has_slugs: int = 0
+var has_slugs: int = 1
 
 onready var heart: PackedScene = preload("res://Player/Heart.tscn")
 
@@ -28,14 +33,17 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
     motion.y += GRAVITY
     if Input.is_action_pressed("ui_right"):
-        motion.x += accel
+        motion.x += accel if motion.x < max_speed else 0
+        if motion.x > 0:
+            facing_right = true
 
     elif Input.is_action_pressed("ui_left"):
-        motion.x -= accel
+        motion.x -= accel if motion.x > -max_speed else 0
+        if motion.x < 0:
+            facing_right = false
 
     else:
-        motion.x = lerp(motion.x, 0, 0.05)
-    motion.x = clamp(motion.x, -max_speed, max_speed)
+        motion.x = lerp(motion.x, 0, 0.1)
     if is_on_floor():
         if Input.is_action_just_pressed("ui_accept"):
             motion.y -= jump_force
@@ -55,13 +63,15 @@ func _physics_process(delta) -> void:
                 motion.y -= jump_force * jump_extra
 
 
-    if motion.x > 0:
-        facing_right = true
-    if motion.x < 0:
-        facing_right = false
-
-
-    motion = move_and_slide(motion * 60.0 * delta, Vector2.UP)
+    if not dead:
+        if Input.is_action_just_pressed("shoot") and has_slugs > 0:
+            var b = bullet.instance()
+            b.position = global_position
+            b.facing_right = facing_right
+            get_tree().root.add_child(b)
+            $ShootSound.play()
+            motion.x += -300 if facing_right else 300
+        motion = move_and_slide(motion * 60.0 * delta, Vector2.UP)
     
     animate()
    
@@ -96,12 +106,22 @@ func hurt(value: int) -> void:
 #            h.position = global_position
 #            get_tree().root.add_child(h)
 #            hearts -= 1
-    use_checkpoint()
-    $HurtSound.play()
+    if not dead:
+        dead = true
+        $RespawnTimer.start(3.0)
+        $HurtParticles.restart()
+        $HurtParticles.emitting = true
+        $PlayerSprite.visible = false
+        $HurtSound.play()
             
 func new_checkpoint(where : Vector2):
     checkpoint = where
     
 func use_checkpoint():
+    dead = false
+    $PlayerSprite.visible = true
     motion = Vector2.ZERO
     position = checkpoint
+
+func _on_RespawnTimer_timeout():
+    use_checkpoint()

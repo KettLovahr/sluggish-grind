@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Props/tileset.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sound/coin.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sound/jump.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sound/hurt.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sound/shoot.wav" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -90,6 +91,25 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -3.08513, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 1
+emission_sphere_radius = 4.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 20, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 1.0
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 9 )
+
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
@@ -150,4 +170,21 @@ volume_db = -15.0
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
 volume_db = -15.0
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+volume_db = -15.0
+
+[node name="HurtParticles" type="Particles2D" parent="."]
+emitting = false
+amount = 64
+lifetime = 2.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 7 )
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 [connection signal="timeout" from="CurrencyBalloonTimeout" to="." method="_on_CurrencyBalloonTimeout_timeout"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]
