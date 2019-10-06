@@ -11,7 +11,6 @@ var motion: Vector2 = Vector2(0, 0)
 var accel: float = 4.0
 
 var coin_count: int = 0
-var hearts: int = 10
 var checkpoint: Vector2
 
 var dead: bool = false
@@ -21,17 +20,20 @@ var jump_force: float = 192.0
 var jump_extra: float = 0.04
 var jumps: int = 0
 
-var has_doublejump: int = 0
-var has_slugs: int = 1
+var submerged: bool = false
 
-onready var heart: PackedScene = preload("res://Player/Heart.tscn")
+var has_doublejump: int = 1
+var has_slugs: int = 1
+var has_divinggear: int = 1
+
+var subject: String = "howtobuy"
 
 func _ready() -> void:
     new_checkpoint(global_position)
     update_coin_count(0)
 
 func _physics_process(delta) -> void:
-    motion.y += GRAVITY
+    motion.y += GRAVITY if not submerged else GRAVITY/4
     if Input.is_action_pressed("ui_right"):
         motion.x += accel if motion.x < max_speed else 0
         if motion.x > 0:
@@ -44,20 +46,23 @@ func _physics_process(delta) -> void:
 
     else:
         motion.x = lerp(motion.x, 0, 0.1)
+
     if is_on_floor():
         if Input.is_action_just_pressed("ui_accept"):
             motion.y -= jump_force
             $JumpSound.pitch_scale = 1.0
             $JumpSound.play()
         jumps = 0
+        if $DoubleJumpParticles.emitting == true:
+            $DoubleJumpParticles.emitting = false
     else:
         if Input.is_action_just_pressed("ui_accept"):
-            print("%s" % [jumps])
             if jumps < has_doublejump:
                 jumps += 1
-                motion.y -= jump_force / jumps
+                motion.y = -jump_force / jumps
                 $JumpSound.pitch_scale = 1.0 + (float(jumps) * 0.3)
                 $JumpSound.play()
+                $DoubleJumpParticles.emitting = true
         if Input.is_action_pressed("ui_accept"):
             if motion.y < 0:
                 motion.y -= jump_force * jump_extra
@@ -70,7 +75,7 @@ func _physics_process(delta) -> void:
             b.facing_right = facing_right
             get_tree().root.add_child(b)
             $ShootSound.play()
-            motion.x += -300 if facing_right else 300
+            motion.x += -100 if facing_right else 100
         motion = move_and_slide(motion * 60.0 * delta, Vector2.UP)
     
     animate()
@@ -78,6 +83,11 @@ func _physics_process(delta) -> void:
     $PlayerSprite.flip_h = not facing_right
     
 func animate() -> void:
+    
+    $HeadsUpDisplay/Upgrades/Slot1/DoubleJump.visible = has_doublejump
+    $HeadsUpDisplay/Upgrades/Slot2/SlugShot.visible = has_slugs
+    $HeadsUpDisplay/Upgrades/Slot3/DivingGear.visible = has_divinggear
+    
     if abs(motion.x) > 1:
         $AnimationPlayer.current_animation = "Walking"
     else:
@@ -89,15 +99,9 @@ func animate() -> void:
         
 func update_coin_count(value: int) -> void:
     coin_count += value
-    $CurrencyBalloon/CurrencyLabel.text = "%s" % [coin_count]
-    $CurrencyBalloonTimeout.start(1.0)
-    if value != 0:
-        $CurrencyBalloon.visible = true
+    $HeadsUpDisplay/CoinCount/CurrencyLabel.text = "%s" % [coin_count]
     if value > 0:
         $CoinSound.play()
-
-func _on_CurrencyBalloonTimeout_timeout():
-    $CurrencyBalloon.visible = false
 
 func hurt(value: int) -> void:
 #    for i in range(value):

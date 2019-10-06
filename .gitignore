@@ -3,6 +3,8 @@
 *.swo
 .fscache
 
+Exports/
+
 .DS_Store
 .DS_Store?
 ._*

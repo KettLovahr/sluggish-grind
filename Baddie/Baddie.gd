@@ -3,15 +3,21 @@ extends Node2D
 var facing_right: bool = false
 var coin : PackedScene = preload("res://Coin/PhysCoin.tscn")
 
+export (int) var hp: int = 1
+export (int) var drop: int = 5
+export (float) var speed: float = 60
+
 func _physics_process(delta) -> void:
     $Sprite.flip_h = facing_right
-    position.x += 60 * delta if facing_right else -60 * delta
+    position.x += speed * delta if facing_right else -speed * delta
 
 func hurt():
-    call_deferred("spawn_coins")
+    hp -= 1
+    if hp <= 0:
+        call_deferred("spawn_coins")
     
 func spawn_coins():
-    for i in range(5):
+    for i in range(drop):
         var c = coin.instance()
         c.position = global_position
         get_tree().root.add_child(c)
