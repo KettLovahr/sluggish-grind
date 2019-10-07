@@ -10,7 +10,7 @@ var motion: Vector2 = Vector2(0, 0)
 
 var accel: float = 4.0
 
-var coin_count: int = 100
+var coin_count: int = 0
 var total_coins_collected: int = 0
 var checkpoint: Vector2
 
