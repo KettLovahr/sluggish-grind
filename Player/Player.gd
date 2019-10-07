@@ -32,6 +32,7 @@ var subject: String = "howtobuy"
 func _ready() -> void:
     new_checkpoint(global_position)
     update_coin_count(0)
+    $CoinSound.play()
 
 func _physics_process(delta) -> void:
     motion.y += GRAVITY if not submerged else GRAVITY/4
