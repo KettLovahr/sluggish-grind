@@ -104,6 +104,7 @@ func update_coin_count(value: int) -> void:
     if value > 0:
         $CoinSound.play()
         total_coins_collected += value
+    Global.coin_count = coin_count
 
 func hurt(value: int) -> void:
     if not dead:
