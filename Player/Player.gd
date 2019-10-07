@@ -10,7 +10,8 @@ var motion: Vector2 = Vector2(0, 0)
 
 var accel: float = 4.0
 
-var coin_count: int = 0
+var coin_count: int = 100
+var total_coins_collected: int = 0
 var checkpoint: Vector2
 
 var dead: bool = false
@@ -22,9 +23,9 @@ var jumps: int = 0
 
 var submerged: bool = false
 
-var has_doublejump: int = 1
-var has_slugs: int = 1
-var has_divinggear: int = 1
+var has_doublejump: int = 0
+var has_slugs: int = 0
+var has_divinggear: int = 0
 
 var subject: String = "howtobuy"
 
@@ -35,12 +36,12 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
     motion.y += GRAVITY if not submerged else GRAVITY/4
     if Input.is_action_pressed("ui_right"):
-        motion.x += accel if motion.x < max_speed else 0
+        motion.x += accel if motion.x < max_speed else 0.0
         if motion.x > 0:
             facing_right = true
 
     elif Input.is_action_pressed("ui_left"):
-        motion.x -= accel if motion.x > -max_speed else 0
+        motion.x -= accel if motion.x > -max_speed else 0.0
         if motion.x < 0:
             facing_right = false
 
@@ -102,14 +103,9 @@ func update_coin_count(value: int) -> void:
     $HeadsUpDisplay/CoinCount/CurrencyLabel.text = "%s" % [coin_count]
     if value > 0:
         $CoinSound.play()
+        total_coins_collected += value
 
 func hurt(value: int) -> void:
-#    for i in range(value):
-#        if hearts > 0:
-#            var h = heart.instance()
-#            h.position = global_position
-#            get_tree().root.add_child(h)
-#            hearts -= 1
     if not dead:
         dead = true
         $RespawnTimer.start(3.0)

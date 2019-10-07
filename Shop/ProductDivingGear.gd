@@ -16,6 +16,7 @@ func _physics_process(delta):
                     player.update_coin_count(-price)
                     $PurchaseSound.play()
                     bought = true
+                    player.subject = "divinggear"
     else:
         $Label.visible = false
 
