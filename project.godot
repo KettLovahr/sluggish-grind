@@ -32,7 +32,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="LD45"
+config/name="SluggishGrindLD45"
 run/main_scene="res://MainScene/Intro.tscn"
 boot_splash/image="res://splash.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
