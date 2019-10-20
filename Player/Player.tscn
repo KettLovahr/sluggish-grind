@@ -105,6 +105,7 @@ spread = 180.0
 gravity = Vector3( 0, 20, 0 )
 initial_velocity = 50.0
 initial_velocity_random = 1.0
+angular_velocity = 0.376471
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale_curve = SubResource( 8 )
@@ -186,11 +187,17 @@ wait_time = 3.0
 one_shot = true
 
 [node name="HeadsUpDisplay" type="CanvasLayer" parent="."]
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="CoinCount" type="Control" parent="HeadsUpDisplay"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ColorRect" type="ColorRect" parent="HeadsUpDisplay/CoinCount"]
 margin_left = 7.0

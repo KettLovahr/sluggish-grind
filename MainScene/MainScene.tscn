@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Props/Torch.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Props/Fire.tscn" type="PackedScene" id=2]
@@ -8,19 +8,17 @@
 [ext_resource path="res://Shop/ProductSlugShot.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Shop/Shop.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Baddie/Baddie.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Baddie/BigBaddie.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Coin/Coin.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Player/Flag.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Lava/Lava.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Lava/Spikes.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Shop/ProductDivingGear.tscn" type="PackedScene" id=15]
-[ext_resource path="res://MainScene/Door.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Coin/Coin.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Player/Flag.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Lava/Lava.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Lava/Spikes.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Shop/ProductDivingGear.tscn" type="PackedScene" id=14]
+[ext_resource path="res://MainScene/Door.tscn" type="PackedScene" id=15]
 
 [node name="World" type="Node2D"]
 
 [node name="WorldObjects" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Sprite2" parent="WorldObjects" instance=ExtResource( 1 )]
 position = Vector2( 360, 224 )
@@ -62,7 +60,6 @@ position = Vector2( 816, 512 )
 position = Vector2( 704, 544 )
 
 [node name="Baddies" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Baddie" parent="Baddies" instance=ExtResource( 8 )]
 position = Vector2( 1736, 552 )
@@ -115,10 +112,14 @@ position = Vector2( 1344, 792 )
 [node name="Baddie17" parent="Baddies" instance=ExtResource( 8 )]
 position = Vector2( 1552, 792 )
 
-[node name="Baddie18" parent="Baddies" instance=ExtResource( 9 )]
+[node name="Baddie18" parent="Baddies" instance=ExtResource( 8 )]
 position = Vector2( 376, 600 )
+scale = Vector2( 3, 3 )
+hp = 10
+drop = 20
+speed = 120.0
 
-[node name="Baddie19" parent="Baddies" instance=ExtResource( 9 )]
+[node name="Baddie19" parent="Baddies" instance=ExtResource( 8 )]
 position = Vector2( 936, 1096 )
 hp = 60
 drop = 70
@@ -155,319 +156,318 @@ scale = Vector2( 2, 2 )
 hp = 3
 
 [node name="Coins" type="Node2D" parent="."]
-editor/display_folded = true
 
-[node name="Coin" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1160, 542 )
 
-[node name="Coin2" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin2" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1112, 542 )
 
-[node name="Coin3" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin3" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1136, 542 )
 
-[node name="Coin4" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin4" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 657, 304 )
 
-[node name="Coin5" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin5" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 641, 304 )
 
-[node name="Coin6" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin6" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 625, 304 )
 
-[node name="Coin7" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin7" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 609, 304 )
 
-[node name="Coin8" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin8" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 256, 80 )
 
-[node name="Coin13" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin13" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 328, 80 )
 
-[node name="Coin15" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin15" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 400, 80 )
 
-[node name="Coin9" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin9" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 280, 80 )
 
-[node name="Coin12" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin12" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 352, 80 )
 
-[node name="Coin14" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin14" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 424, 80 )
 
-[node name="Coin10" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin10" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 304, 80 )
 
-[node name="Coin11" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin11" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 376, 80 )
 
-[node name="Coin16" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin16" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 448, 80 )
 
-[node name="Coin17" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin17" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1424, 336 )
 
-[node name="Coin18" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin18" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1424, 312 )
 
-[node name="Coin19" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin19" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1424, 288 )
 
-[node name="Coin20" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin20" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1408, 336 )
 
-[node name="Coin21" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin21" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1408, 312 )
 
-[node name="Coin22" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin22" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1408, 288 )
 
-[node name="Coin23" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin23" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1392, 336 )
 
-[node name="Coin24" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin24" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1392, 312 )
 
-[node name="Coin25" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin25" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1392, 288 )
 
-[node name="Coin26" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin26" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 2000, 208 )
 
-[node name="Coin27" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin27" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1984, 208 )
 
-[node name="Coin28" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin28" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1968, 208 )
 
-[node name="Coin29" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin29" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1952, 208 )
 
-[node name="Coin30" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin30" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1936, 208 )
 
-[node name="Coin31" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin31" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1440, 336 )
 
-[node name="Coin32" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin32" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1440, 312 )
 
-[node name="Coin33" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin33" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1440, 288 )
 
-[node name="Coin34" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin34" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1680, 608 )
 
-[node name="Coin35" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin35" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1704, 608 )
 
-[node name="Coin36" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin36" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1728, 608 )
 
-[node name="Coin37" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin37" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1752, 608 )
 
-[node name="Coin38" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin38" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1776, 608 )
 
-[node name="Coin39" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin39" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 904, 288 )
 
-[node name="Coin53" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin53" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 904, 304 )
 
-[node name="Coin65" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin65" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 904, 320 )
 
-[node name="Coin74" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin74" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 904, 336 )
 
-[node name="Coin80" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin80" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 904, 352 )
 
-[node name="Coin42" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin42" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 936, 288 )
 
-[node name="Coin56" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin56" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 936, 304 )
 
-[node name="Coin62" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin62" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 936, 320 )
 
-[node name="Coin76" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin76" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 936, 336 )
 
-[node name="Coin86" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin86" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 936, 352 )
 
-[node name="Coin44" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin44" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 968, 288 )
 
-[node name="Coin49" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin49" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 968, 304 )
 
-[node name="Coin59" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin59" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 968, 320 )
 
-[node name="Coin71" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin71" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 968, 336 )
 
-[node name="Coin84" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin84" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 968, 352 )
 
-[node name="Coin45" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin45" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1000, 288 )
 
-[node name="Coin51" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin51" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1000, 304 )
 
-[node name="Coin67" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin67" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1000, 320 )
 
-[node name="Coin72" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin72" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1000, 336 )
 
-[node name="Coin85" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin85" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1000, 352 )
 
-[node name="Coin47" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin47" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1032, 288 )
 
-[node name="Coin52" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin52" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1032, 304 )
 
-[node name="Coin68" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin68" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1032, 320 )
 
-[node name="Coin73" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin73" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1032, 336 )
 
-[node name="Coin79" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin79" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1032, 352 )
 
-[node name="Coin40" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin40" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 920, 288 )
 
-[node name="Coin50" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin50" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 920, 304 )
 
-[node name="Coin60" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin60" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 920, 320 )
 
-[node name="Coin69" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin69" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 920, 336 )
 
-[node name="Coin82" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin82" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 920, 352 )
 
-[node name="Coin41" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin41" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 952, 288 )
 
-[node name="Coin55" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin55" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 952, 304 )
 
-[node name="Coin61" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin61" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 952, 320 )
 
-[node name="Coin70" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin70" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 952, 336 )
 
-[node name="Coin83" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin83" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 952, 352 )
 
-[node name="Coin43" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin43" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 984, 288 )
 
-[node name="Coin58" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin58" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 984, 304 )
 
-[node name="Coin64" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin64" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 984, 320 )
 
-[node name="Coin78" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin78" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 984, 336 )
 
-[node name="Coin88" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin88" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 984, 352 )
 
-[node name="Coin46" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin46" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1016, 288 )
 
-[node name="Coin54" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin54" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1016, 304 )
 
-[node name="Coin66" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin66" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1016, 320 )
 
-[node name="Coin75" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin75" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1016, 336 )
 
-[node name="Coin81" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin81" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1016, 352 )
 
-[node name="Coin48" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin48" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1048, 288 )
 
-[node name="Coin57" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin57" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1048, 304 )
 
-[node name="Coin63" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin63" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1048, 320 )
 
-[node name="Coin77" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin77" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1048, 336 )
 
-[node name="Coin87" parent="Coins" instance=ExtResource( 10 )]
+[node name="Coin87" parent="Coins" instance=ExtResource( 9 )]
 position = Vector2( 1048, 352 )
 
 [node name="Checkpoints" type="Node2D" parent="."]
 
-[node name="Checkpoint" parent="Checkpoints" instance=ExtResource( 11 )]
+[node name="Checkpoint" parent="Checkpoints" instance=ExtResource( 10 )]
 position = Vector2( 793, 216 )
 
-[node name="Checkpoint2" parent="Checkpoints" instance=ExtResource( 11 )]
+[node name="Checkpoint2" parent="Checkpoints" instance=ExtResource( 10 )]
 position = Vector2( 1312, 216 )
 
-[node name="Checkpoint3" parent="Checkpoints" instance=ExtResource( 11 )]
+[node name="Checkpoint3" parent="Checkpoints" instance=ExtResource( 10 )]
 position = Vector2( 1856, 456 )
 
-[node name="Checkpoint4" parent="Checkpoints" instance=ExtResource( 11 )]
+[node name="Checkpoint4" parent="Checkpoints" instance=ExtResource( 10 )]
 position = Vector2( 1288, 904 )
 
 [node name="Hazards" type="Node2D" parent="."]
 
-[node name="Lava" parent="Hazards" instance=ExtResource( 12 )]
+[node name="Lava" parent="Hazards" instance=ExtResource( 11 )]
 position = Vector2( 848, 320 )
 scale = Vector2( 2, 4 )
 
-[node name="Lava2" parent="Hazards" instance=ExtResource( 12 )]
+[node name="Lava2" parent="Hazards" instance=ExtResource( 11 )]
 position = Vector2( 1416, 608 )
 scale = Vector2( 3.5, 1 )
 
-[node name="Lava3" parent="Hazards" instance=ExtResource( 12 )]
+[node name="Lava3" parent="Hazards" instance=ExtResource( 11 )]
 position = Vector2( 1160, 776 )
 scale = Vector2( 9.5, 1.5 )
 
-[node name="Spikes" parent="Hazards" instance=ExtResource( 13 )]
+[node name="Spikes" parent="Hazards" instance=ExtResource( 12 )]
 position = Vector2( 1784, 936 )
 scale = Vector2( 9, 1 )
 
-[node name="Lava159" parent="Hazards" instance=ExtResource( 12 )]
+[node name="Lava159" parent="Hazards" instance=ExtResource( 11 )]
 position = Vector2( 2136, 880 )
 scale = Vector2( 4.5, 4 )
 
-[node name="Spikes2" parent="Hazards" instance=ExtResource( 13 )]
+[node name="Spikes2" parent="Hazards" instance=ExtResource( 12 )]
 position = Vector2( 1224, 1112 )
 
-[node name="Spikes3" parent="Hazards" instance=ExtResource( 13 )]
+[node name="Spikes3" parent="Hazards" instance=ExtResource( 12 )]
 position = Vector2( 648, 1112 )
 
-[node name="Player" parent="." instance=ExtResource( 14 )]
+[node name="Player" parent="." instance=ExtResource( 13 )]
 position = Vector2( 280, 264 )
 
-[node name="Node2D" parent="." instance=ExtResource( 15 )]
+[node name="Node2D" parent="." instance=ExtResource( 14 )]
 position = Vector2( 864, 512 )
 
-[node name="Door" parent="." instance=ExtResource( 16 )]
+[node name="Door" parent="." instance=ExtResource( 15 )]
 position = Vector2( 240, 256 )

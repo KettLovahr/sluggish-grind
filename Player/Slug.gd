@@ -20,7 +20,6 @@ func _process(delta):
 func _on_Area2D_area_entered(area):
     if area is BaddieCollision:
         area.get_parent().hurt()
-        $KillSound.play()
         queue_free()
 
 func _on_BulletTime_timeout():

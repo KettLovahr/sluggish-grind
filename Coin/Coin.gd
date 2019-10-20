@@ -16,5 +16,6 @@ func _ready():
 
 func _on_CoinArea_body_entered(body):
     if body is Player:
-        body.update_coin_count(1)
-        queue_free()
+        if not body.dead:
+            body.update_coin_count(1)
+            queue_free()

@@ -4,6 +4,7 @@
 .fscache
 
 Exports/
+.import/
 
 .DS_Store
 .DS_Store?

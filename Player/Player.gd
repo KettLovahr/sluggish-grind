@@ -16,17 +16,20 @@ var checkpoint: Vector2
 
 var dead: bool = false
 
-var max_speed: float = 64.0
-var jump_force: float = 192.0
-var jump_extra: float = 0.04
+# warning-ignore:unused_class_variable
+var max_speed: float = 96.0
+var jump_force: float = 192
+var jump_extra: float = 0.035
 var jumps: int = 0
 
+# warning-ignore:unused_class_variable
 var submerged: bool = false
 
 var has_doublejump: int = 0
 var has_slugs: int = 0
 var has_divinggear: int = 0
 
+# warning-ignore:unused_class_variable
 var subject: String = "howtobuy"
 
 func _ready() -> void:
@@ -34,6 +37,7 @@ func _ready() -> void:
     update_coin_count(0)
     $CoinSound.play()
 
+# warning-ignore:unused_argument
 func _physics_process(delta) -> void:
     motion.y += GRAVITY if not submerged else GRAVITY/4
     if Input.is_action_pressed("ui_right"):
@@ -78,7 +82,7 @@ func _physics_process(delta) -> void:
             get_tree().root.add_child(b)
             $ShootSound.play()
             motion.x += -100 if facing_right else 100
-        motion = move_and_slide(motion * 60.0 * delta, Vector2.UP)
+        motion = move_and_slide(motion, Vector2.UP)
     
     animate()
    
@@ -107,6 +111,7 @@ func update_coin_count(value: int) -> void:
         total_coins_collected += value
     Global.coin_count = coin_count
 
+# warning-ignore:unused_argument
 func hurt(value: int) -> void:
     if not dead:
         dead = true

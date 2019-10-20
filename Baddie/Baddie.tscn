@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Baddie/Baddie.gd" type="Script" id=1]
 [ext_resource path="res://Props/tileset.png" type="Texture" id=2]
-[ext_resource path="res://Baddie/Area2D.gd" type="Script" id=3]
+[ext_resource path="res://Baddie/Baddie.material" type="Material" id=3]
+[ext_resource path="res://Baddie/Area2D.gd" type="Script" id=4]
+[ext_resource path="res://Sound/enemyhurt.wav" type="AudioStream" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Default"
@@ -19,6 +21,34 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Hurt"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ), null ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:material:shader_param/invert_colors")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false ]
 }
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -40,9 +70,10 @@ region_rect = Rect2( 96, 0, 32, 16 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Default"
 anims/Default = SubResource( 1 )
+anims/Hurt = SubResource( 6 )
 
 [node name="Area2D" type="Area2D" parent="."]
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
@@ -70,6 +101,10 @@ shape = SubResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightTileCheck2"]
 position = Vector2( 10, 0.846123 )
 shape = SubResource( 3 )
+
+[node name="BaddieHurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="LeftTileCheck" to="." method="_on_LeftTileCheck_body_exited"]
 [connection signal="body_entered" from="LeftTileCheck2" to="." method="_on_LeftTileCheck2_body_entered"]

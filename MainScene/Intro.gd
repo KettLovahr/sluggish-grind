@@ -6,3 +6,4 @@ func _process(delta):
 
 func _on_PromptTimer_timeout():
     $sluggishgrind/spacebar.visible = true
+    
