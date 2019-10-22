@@ -1,13 +1,53 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Baddie/Baddie.gd" type="Script" id=1]
 [ext_resource path="res://Props/tileset.png" type="Texture" id=2]
 [ext_resource path="res://Baddie/Baddie.material" type="Material" id=3]
 [ext_resource path="res://Baddie/Area2D.gd" type="Script" id=4]
 [ext_resource path="res://Sound/enemyhurt.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sound/kill.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
-resource_name = "Default"
+resource_name = "Death"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:material:shader_param/invert_colors")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 0 ), Vector2( 0, -8 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -23,8 +63,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "Hurt"
+[sub_resource type="Animation" id=3]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:material")
@@ -51,10 +90,10 @@ tracks/1/keys = {
 "values": [ true, false, true, false ]
 }
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 6, 6 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 2, 2 )
 
 [node name="Baddie" type="Node2D"]
@@ -69,41 +108,53 @@ region_rect = Rect2( 96, 0, 32, 16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Default"
-anims/Default = SubResource( 1 )
-anims/Hurt = SubResource( 6 )
+anims/Death = SubResource( 1 )
+anims/Default = SubResource( 2 )
+anims/Hurt = SubResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
+editor/display_folded = true
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="LeftTileCheck" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftTileCheck"]
 position = Vector2( -10, 10 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="LeftTileCheck2" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftTileCheck2"]
 position = Vector2( -10, 0.846123 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="RightTileCheck" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightTileCheck"]
 position = Vector2( 10, 10 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="RightTileCheck2" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightTileCheck2"]
 position = Vector2( 10, 0.846123 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="BaddieHurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+
+[node name="BaddieKillSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+volume_db = -15.0
+
+[node name="DeathTimer" type="Timer" parent="."]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="LeftTileCheck" to="." method="_on_LeftTileCheck_body_exited"]

@@ -56,7 +56,7 @@ func _physics_process(delta) -> void:
     if is_on_floor():
         if Input.is_action_just_pressed("ui_accept"):
             motion.y -= jump_force
-            $JumpSound.pitch_scale = 1.0
+            $JumpSound.pitch_scale = 0.9 + (randf() * 0.2)
             $JumpSound.play()
         jumps = 0
         if $DoubleJumpParticles.emitting == true:
@@ -120,6 +120,7 @@ func hurt(value: int) -> void:
         $HurtParticles.emitting = true
         $PlayerSprite.visible = false
         $HurtSound.play()
+        $DoubleJumpParticles.emitting = false
             
 func new_checkpoint(where : Vector2):
     checkpoint = where

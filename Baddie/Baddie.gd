@@ -1,6 +1,7 @@
 extends Node2D
 
 var facing_right: bool = false
+var dead : bool = false
 var coin : PackedScene = preload("res://Coin/PhysCoin.tscn")
 
 export (int) var hp: int = 2
@@ -9,12 +10,15 @@ export (float) var speed: float = 60
 
 func _physics_process(delta) -> void:
     $Sprite.flip_h = facing_right
-    position.x += speed * delta if facing_right else -speed * delta
+    if not dead:
+        position.x += speed * delta if facing_right else -speed * delta
 
 func hurt():
     hp -= 1
     if hp <= 0:
-        call_deferred("spawn_coins")
+        $BaddieKillSound.play()
+        dead = true
+        $AnimationPlayer.current_animation = "Death"
     else:
         $BaddieHurtSound.play()
         $AnimationPlayer.current_animation = "Hurt"
@@ -38,9 +42,10 @@ func _on_RightTileCheck_body_exited(body):
 
 
 func _on_Area2D_body_entered(body):
-    if body is Player:
-        if not body.dead:
-            body.call_deferred("hurt", 3)
+    if not dead:
+        if body is Player:
+            if not body.dead:
+                body.call_deferred("hurt", 3)
 
 
 func _on_LeftTileCheck2_body_entered(body):
@@ -54,5 +59,7 @@ func _on_RightTileCheck2_body_entered(body):
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
+    if anim_name == "Death":
+        spawn_coins()
     if anim_name == "Hurt":
         $AnimationPlayer.current_animation = "Default"
