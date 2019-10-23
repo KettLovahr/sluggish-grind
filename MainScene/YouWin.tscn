@@ -21,38 +21,14 @@ zoom = Vector2( 0.5, 0.5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Congratulations" type="Label" parent="CanvasLayer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -239.5
-margin_top = -204.0
-margin_right = 0.5
-margin_bottom = -36.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_scale = Vector2( 2, 2 )
-rect_pivot_offset = Vector2( 0.5, 0 )
-custom_fonts/font = ExtResource( 2 )
-text = "You win!
-
-Give yourself a pat on the back
-Maybe go buy something nice with all these coins
-Or show off your cool new slug super powers."
-align = 1
-valign = 1
-autowrap = true
-
 [node name="CoinCount" type="Label" parent="CanvasLayer"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -238.5
-margin_top = 132.0
-margin_right = 1.5
-margin_bottom = 156.0
+margin_left = -256.0
+margin_top = -148.0
+margin_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_scale = Vector2( 2, 2 )
@@ -62,6 +38,3 @@ text = "You collected 000 coins"
 align = 1
 valign = 1
 autowrap = true
-
-[node name="Node2D" type="Node2D" parent="CanvasLayer/CoinCount"]
-position = Vector2( 11.3333, -162.667 )

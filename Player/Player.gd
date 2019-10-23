@@ -4,7 +4,7 @@ class_name Player
 
 var bullet: PackedScene = preload("res://Player/Slug.tscn")
 
-const GRAVITY: float = 9.8
+const GRAVITY: float = 14.8
 var facing_right: bool = true
 var motion: Vector2 = Vector2(0, 0)
 
@@ -18,7 +18,7 @@ var dead: bool = false
 
 # warning-ignore:unused_class_variable
 var max_speed: float = 96.0
-var jump_force: float = 192
+var jump_force: float = 256
 var jump_extra: float = 0.035
 var jumps: int = 0
 
@@ -39,6 +39,8 @@ func _ready() -> void:
 
 # warning-ignore:unused_argument
 func _physics_process(delta) -> void:
+    Global.time += delta
+    $HeadsUpDisplay/Score/ScoreLabel.text = "%s" % [Global.score]
     motion.y += GRAVITY if not submerged else GRAVITY/4
     if Input.is_action_pressed("ui_right"):
         motion.x += accel if motion.x < max_speed else 0.0
@@ -114,6 +116,7 @@ func update_coin_count(value: int) -> void:
 # warning-ignore:unused_argument
 func hurt(value: int) -> void:
     if not dead:
+        Global.death_count += 1
         dead = true
         $RespawnTimer.start(3.0)
         $HurtParticles.restart()
