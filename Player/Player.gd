@@ -112,6 +112,7 @@ func update_coin_count(value: int) -> void:
         $CoinSound.play()
         total_coins_collected += value
     Global.coin_count = coin_count
+    Global.coins_collected += value if value > 0 else 0
 
 # warning-ignore:unused_argument
 func hurt(value: int) -> void:
