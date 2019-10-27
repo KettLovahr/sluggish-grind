@@ -14,7 +14,6 @@ flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 52.88
-angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 50.0
@@ -240,6 +239,7 @@ region_enabled = true
 region_rect = Rect2( 64, 0, 16, 16 )
 
 [node name="Score" type="Control" parent="HeadsUpDisplay"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -40.0
