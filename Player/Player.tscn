@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Props/heart.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Sound/hurt.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sound/shoot.wav" type="AudioStream" id=7]
 [ext_resource path="res://Fonts/FontResource.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Player/warping_shader.tres" type="Shader" id=9]
+[ext_resource path="res://Player/Exploration.ogg" type="AudioStream" id=10]
 
 [sub_resource type="ParticlesMaterial" id=1]
 flag_disable_z = true
@@ -133,6 +135,13 @@ angular_velocity = 6.44597e-44
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale_curve = SubResource( 12 )
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = ExtResource( 9 )
+shader_param/Curvature = 0.22
+shader_param/FrameWidth = 0.0
+shader_param/Aberration = 0.0
+shader_param/Blur = 0.0
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -309,4 +318,18 @@ visible = false
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 32, 80, 16, 16 )
+
+[node name="ColorRect" type="ColorRect" parent="HeadsUpDisplay"]
+visible = false
+material = SubResource( 14 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+autoplay = true
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]
+[connection signal="finished" from="Music" to="." method="_on_Music_finished"]

@@ -1,0 +1,310 @@
+[gd_resource type="VisualShader" load_steps=21 format=2]
+
+[sub_resource type="VisualShaderNodeTexture" id=1]
+source = 1
+
+[sub_resource type="VisualShaderNodeInput" id=2]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeExpression" id=3]
+expression = "float new_x = (
+		(screen_uv.x) - (sin(screen_uv.y * 3.14f) * (screen_uv.x - 0.5)
+	) * curvature) + curvature * (screen_uv.x - 0.5);
+float new_y = (
+		(screen_uv.y) - (sin(screen_uv.x * 3.14f) * (screen_uv.y - 0.5)
+	) * curvature) + curvature * (screen_uv.y - 0.5);
+
+new_uv = vec3(
+	new_x,
+	new_y,
+	0
+);
+
+mask = 1.0;
+if (
+	new_uv.x < frame_width || new_uv.x > 1.0 - frame_width ||
+	new_uv.y < frame_width || new_uv.y > 1.0 - frame_width
+) {
+	mask = 0.0;
+}"
+
+[sub_resource type="VisualShaderNodeVectorOp" id=4]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=5]
+uniform_name = "FrameWidth"
+
+[sub_resource type="VisualShaderNodeVectorOp" id=6]
+default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( -0.05, 0, 0 ) ]
+
+[sub_resource type="VisualShaderNodeVectorOp" id=7]
+default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 0.05, 0, 0 ) ]
+operator = 1
+
+[sub_resource type="VisualShaderNodeTexture" id=8]
+source = 1
+
+[sub_resource type="VisualShaderNodeTexture" id=9]
+source = 1
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=10]
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=11]
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=12]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=13]
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=14]
+uniform_name = "Aberration"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=15]
+
+[sub_resource type="VisualShaderNodeVectorOp" id=16]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=17]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=18]
+default_input_values = [ 0, 0.0, 1, 0.5 ]
+operator = 1
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=19]
+uniform_name = "Blur"
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=20]
+uniform_name = "Curvature"
+
+[resource]
+code = "shader_type canvas_item;
+render_mode skip_vertex_transform;
+
+uniform float Curvature;
+uniform float FrameWidth;
+uniform float Aberration;
+uniform float Blur;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// ScalarUniform:9
+	float n_out9p0;
+	n_out9p0 = Curvature;
+
+// Input:11
+	vec3 n_out11p0;
+	n_out11p0 = vec3(SCREEN_UV,0.0);
+
+// ScalarUniform:15
+	float n_out15p0;
+	n_out15p0 = FrameWidth;
+
+// Expression:12
+	vec3 n_out12p0;
+	float n_out12p1;
+	n_out12p0=vec3(0.0, 0.0, 0.0);
+	n_out12p1=0.0;
+	{
+		float new_x = (
+				(n_out11p0.x) - (sin(n_out11p0.y * 3.14f) * (n_out11p0.x - 0.5)
+			) * n_out9p0) + n_out9p0 * (n_out11p0.x - 0.5);
+		float new_y = (
+				(n_out11p0.y) - (sin(n_out11p0.x * 3.14f) * (n_out11p0.y - 0.5)
+			) * n_out9p0) + n_out9p0 * (n_out11p0.y - 0.5);
+		
+		n_out12p0 = vec3(
+			new_x,
+			new_y,
+			0
+		);
+		
+		n_out12p1 = 1.0;
+		if (
+			n_out12p0.x < n_out15p0 || n_out12p0.x > 1.0 - n_out15p0 ||
+			n_out12p0.y < n_out15p0 || n_out12p0.y > 1.0 - n_out15p0
+		) {
+			n_out12p1 = 0.0;
+		}
+	}
+// VectorDecompose:30
+	float n_out30p0;
+	float n_out30p1;
+	float n_out30p2;
+	n_out30p0 = n_out12p0.x;
+	n_out30p1 = n_out12p0.y;
+	n_out30p2 = n_out12p0.z;
+
+// ScalarOp:32
+	float n_in32p1 = 0.50000;
+	float n_out32p0;
+	n_out32p0 = n_out30p0 - n_in32p1;
+
+// ScalarUniform:25
+	float n_out25p0;
+	n_out25p0 = Aberration;
+
+// VectorCompose:26
+	float n_in26p1 = 0.00000;
+	float n_in26p2 = 0.00000;
+	vec3 n_out26p0;
+	n_out26p0 = vec3( n_out25p0 , n_in26p1 , n_in26p2 );
+
+// VectorOp:29
+	vec3 n_out29p0;
+	n_out29p0 = vec3(n_out32p0) * n_out26p0;
+
+// VectorOp:16
+	vec3 n_out16p0;
+	n_out16p0 = n_out12p0 + n_out29p0;
+
+// ScalarUniform:33
+	float n_out33p0;
+	n_out33p0 = Blur;
+
+// Texture:10
+	vec3 n_out10p0;
+	float n_out10p1;
+	{
+		vec4 _tex_read = textureLod( SCREEN_TEXTURE , n_out16p0.xy , n_out33p0 );
+		n_out10p0 = _tex_read.rgb;
+		n_out10p1 = _tex_read.a;
+	}
+
+// VectorDecompose:21
+	float n_out21p0;
+	float n_out21p1;
+	float n_out21p2;
+	n_out21p0 = n_out10p0.x;
+	n_out21p1 = n_out10p0.y;
+	n_out21p2 = n_out10p0.z;
+
+// Texture:19
+	vec3 n_out19p0;
+	float n_out19p1;
+	{
+		vec4 _tex_read = textureLod( SCREEN_TEXTURE , n_out12p0.xy , n_out33p0 );
+		n_out19p0 = _tex_read.rgb;
+		n_out19p1 = _tex_read.a;
+	}
+
+// VectorDecompose:22
+	float n_out22p0;
+	float n_out22p1;
+	float n_out22p2;
+	n_out22p0 = n_out19p0.x;
+	n_out22p1 = n_out19p0.y;
+	n_out22p2 = n_out19p0.z;
+
+// VectorOp:17
+	vec3 n_out17p0;
+	n_out17p0 = n_out12p0 - n_out29p0;
+
+// Texture:20
+	vec3 n_out20p0;
+	float n_out20p1;
+	{
+		vec4 _tex_read = textureLod( SCREEN_TEXTURE , n_out17p0.xy , n_out33p0 );
+		n_out20p0 = _tex_read.rgb;
+		n_out20p1 = _tex_read.a;
+	}
+
+// VectorDecompose:23
+	float n_out23p0;
+	float n_out23p1;
+	float n_out23p2;
+	n_out23p0 = n_out20p0.x;
+	n_out23p1 = n_out20p0.y;
+	n_out23p2 = n_out20p0.z;
+
+// VectorCompose:24
+	vec3 n_out24p0;
+	n_out24p0 = vec3( n_out21p0 , n_out22p1 , n_out23p2 );
+
+// VectorOp:14
+	vec3 n_out14p0;
+	n_out14p0 = vec3(n_out12p1) * n_out24p0;
+
+// Output:0
+	COLOR.rgb = n_out14p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -655, -99 )
+mode = 1
+flags/light_only = false
+flags/skip_vertex_transform = true
+nodes/fragment/0/position = Vector2( 1040, 480 )
+nodes/fragment/9/node = SubResource( 20 )
+nodes/fragment/9/position = Vector2( -940, -240 )
+nodes/fragment/10/node = SubResource( 1 )
+nodes/fragment/10/position = Vector2( 300, 480 )
+nodes/fragment/11/node = SubResource( 2 )
+nodes/fragment/11/position = Vector2( -960, -140 )
+nodes/fragment/12/node = SubResource( 3 )
+nodes/fragment/12/position = Vector2( -680, -240 )
+nodes/fragment/12/size = Vector2( 709.472, 598.784 )
+nodes/fragment/12/input_ports = "0,0,curvature;1,1,screen_uv;2,0,frame_width;"
+nodes/fragment/12/output_ports = "0,1,new_uv;1,0,mask;"
+nodes/fragment/12/expression = "float new_x = (
+		(screen_uv.x) - (sin(screen_uv.y * 3.14f) * (screen_uv.x - 0.5)
+	) * curvature) + curvature * (screen_uv.x - 0.5);
+float new_y = (
+		(screen_uv.y) - (sin(screen_uv.x * 3.14f) * (screen_uv.y - 0.5)
+	) * curvature) + curvature * (screen_uv.y - 0.5);
+
+new_uv = vec3(
+	new_x,
+	new_y,
+	0
+);
+
+mask = 1.0;
+if (
+	new_uv.x < frame_width || new_uv.x > 1.0 - frame_width ||
+	new_uv.y < frame_width || new_uv.y > 1.0 - frame_width
+) {
+	mask = 0.0;
+}"
+nodes/fragment/14/node = SubResource( 4 )
+nodes/fragment/14/position = Vector2( 860, 480 )
+nodes/fragment/15/node = SubResource( 5 )
+nodes/fragment/15/position = Vector2( -940, -40 )
+nodes/fragment/16/node = SubResource( 6 )
+nodes/fragment/16/position = Vector2( 120, 480 )
+nodes/fragment/17/node = SubResource( 7 )
+nodes/fragment/17/position = Vector2( 120, 760 )
+nodes/fragment/19/node = SubResource( 8 )
+nodes/fragment/19/position = Vector2( 300, 620 )
+nodes/fragment/20/node = SubResource( 9 )
+nodes/fragment/20/position = Vector2( 300, 760 )
+nodes/fragment/21/node = SubResource( 10 )
+nodes/fragment/21/position = Vector2( 480, 560 )
+nodes/fragment/22/node = SubResource( 11 )
+nodes/fragment/22/position = Vector2( 480, 660 )
+nodes/fragment/23/node = SubResource( 12 )
+nodes/fragment/23/position = Vector2( 480, 760 )
+nodes/fragment/24/node = SubResource( 13 )
+nodes/fragment/24/position = Vector2( 720, 660 )
+nodes/fragment/25/node = SubResource( 14 )
+nodes/fragment/25/position = Vector2( -740, 700 )
+nodes/fragment/26/node = SubResource( 15 )
+nodes/fragment/26/position = Vector2( -500, 720 )
+nodes/fragment/29/node = SubResource( 16 )
+nodes/fragment/29/position = Vector2( -240, 660 )
+nodes/fragment/30/node = SubResource( 17 )
+nodes/fragment/30/position = Vector2( -300, 380 )
+nodes/fragment/32/node = SubResource( 18 )
+nodes/fragment/32/position = Vector2( -280, 520 )
+nodes/fragment/33/node = SubResource( 19 )
+nodes/fragment/33/position = Vector2( 120, 640 )
+nodes/fragment/connections = PoolIntArray( 9, 0, 12, 0, 15, 0, 12, 2, 12, 0, 16, 0, 12, 0, 17, 0, 16, 0, 10, 0, 17, 0, 20, 0, 20, 0, 23, 0, 19, 0, 22, 0, 10, 0, 21, 0, 21, 0, 24, 0, 22, 1, 24, 1, 23, 2, 24, 2, 14, 0, 0, 0, 12, 0, 19, 0, 25, 0, 26, 0, 30, 0, 32, 0, 33, 0, 20, 1, 33, 0, 19, 1, 33, 0, 10, 1, 12, 0, 30, 0, 12, 1, 14, 0, 24, 0, 14, 1, 32, 0, 29, 0, 26, 0, 29, 1, 11, 0, 12, 1, 29, 0, 16, 1, 29, 0, 17, 1 )

@@ -506,7 +506,6 @@ position = Vector2( 1856, 456 )
 position = Vector2( 1288, 904 )
 
 [node name="Hazards" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Lava" parent="Hazards" instance=ExtResource( 11 )]
 position = Vector2( 848, 320 )

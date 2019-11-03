@@ -137,3 +137,7 @@ func use_checkpoint():
 
 func _on_RespawnTimer_timeout():
     use_checkpoint()
+
+
+func _on_Music_finished():
+    $Music.play()
